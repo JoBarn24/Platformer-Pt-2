@@ -38,6 +38,7 @@ public class LevelParser : MonoBehaviour
     public GameObject brickPrefab;
     public GameObject questionBoxPrefab;
     public GameObject stonePrefab;
+    public GameObject testPrefab;
 
     // --------------------------------------------------------------------------
     void Start()
@@ -80,6 +81,13 @@ public class LevelParser : MonoBehaviour
             for (int col = 0; col < letters.Length; ++col)
             {
                 // Todo - Instantiate a new GameObject that matches the type specified by letter
+                if (letters[col] == 'x')
+                {
+                    Vector3 pos = new Vector3(col + 0.5f, row + 0.5f, 0f);
+                    GameObject newObj = Instantiate(testPrefab, environmentRoot);
+                    newObj.transform.position = pos;
+                }
+                
                 // Todo - Position the new GameObject at the appropriate location by using row and column
                 // Todo - Parent the new GameObject under levelRoot
             }
