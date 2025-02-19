@@ -38,7 +38,7 @@ public class LevelParser : MonoBehaviour
     public GameObject brickPrefab;
     public GameObject questionBoxPrefab;
     public GameObject stonePrefab;
-    public GameObject testPrefab;
+    public GameObject dirtPrefab;
 
     // --------------------------------------------------------------------------
     void Start()
@@ -81,15 +81,32 @@ public class LevelParser : MonoBehaviour
             for (int col = 0; col < letters.Length; ++col)
             {
                 // Todo - Instantiate a new GameObject that matches the type specified by letter
+                // Todo - Position the new GameObject at the appropriate location by using row and column
+                // Todo - Parent the new GameObject under levelRoot
                 if (letters[col] == 'x')
                 {
                     Vector3 pos = new Vector3(col + 0.5f, row + 0.5f, 0f);
-                    GameObject newObj = Instantiate(testPrefab, environmentRoot);
+                    GameObject newObj = Instantiate(dirtPrefab, environmentRoot);
                     newObj.transform.position = pos;
                 }
-                
-                // Todo - Position the new GameObject at the appropriate location by using row and column
-                // Todo - Parent the new GameObject under levelRoot
+                else if (letters[col] == 'b')
+                {
+                    Vector3 pos = new Vector3(col + 0.5f, row + 0.5f, 0f);
+                    GameObject newObj = Instantiate(brickPrefab, environmentRoot);
+                    newObj.transform.position = pos;
+                }
+                else if (letters[col] == '?')
+                {
+                    Vector3 pos = new Vector3(col + 0.5f, row + 0.5f, 0f);
+                    GameObject newObj = Instantiate(questionBoxPrefab, environmentRoot);
+                    newObj.transform.position = pos;
+                }
+                else if (letters[col] == 's')
+                {
+                    Vector3 pos = new Vector3(col + 0.5f, row + 0.5f, 0f);
+                    GameObject newObj = Instantiate(stonePrefab, environmentRoot);
+                    newObj.transform.position = pos;
+                }
             }
             row++;
         }
