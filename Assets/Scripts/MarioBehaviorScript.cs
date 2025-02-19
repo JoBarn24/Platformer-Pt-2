@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class MarioBehaviorScript : MonoBehaviour
@@ -6,11 +7,14 @@ public class MarioBehaviorScript : MonoBehaviour
     public float maxSpeed = 10f;
     public float jumpImpulse = 8f;
     public float jumpBoostForce = 5.7f;
+    public int coinCount = 0;
+    public TextMeshProUGUI coinCounter;
     
     [Header("Debug Stuff")]
     public bool isGrounded;
     
     Rigidbody rb;
+    private GameObject brick;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -45,7 +49,7 @@ public class MarioBehaviorScript : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            //apply an impulse force updward
+            //apply an impulse force upward
             rb.AddForce(Vector3.up * jumpImpulse, ForceMode.VelocityChange);
         }
         else if (Input.GetKey(KeyCode.Space) && !isGrounded)
@@ -67,6 +71,26 @@ public class MarioBehaviorScript : MonoBehaviour
             float yawRotation = (horizontalAmount > 0f) ? 90f : -90f;
             Quaternion rotation = Quaternion.Euler(0f, yawRotation, 0f);
             transform.rotation = rotation;
+        }
+        
+        //break brick when mouse clicks it
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            
+            if (Physics.Raycast(ray, out hit) && hit.collider != null)
+            {
+                if (hit.collider.tag == "Brick")
+                {
+                    Destroy(hit.collider.gameObject);
+                }
+                else if (hit.collider.tag == "Question")
+                {
+                    coinCount++;
+                    coinCounter.text = "x" + coinCount.ToString();
+                }
+            }
         }
     }
 }
