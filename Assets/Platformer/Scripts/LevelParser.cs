@@ -107,6 +107,12 @@ public class LevelParser : MonoBehaviour
                     GameObject newObj = Instantiate(stonePrefab, environmentRoot);
                     newObj.transform.position = pos;
                 }
+                else if (letters[col] == 'r')
+                {
+                    Vector3 pos = new Vector3(col + 0.5f, row + 0.5f, 0f);
+                    GameObject newObj = Instantiate(rockPrefab, environmentRoot);
+                    newObj.transform.position = pos;
+                }
             }
             row++;
         }
