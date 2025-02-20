@@ -88,7 +88,7 @@ public class MarioBehaviorScript : MonoBehaviour
                 else if (hit.collider.tag == "Question")
                 {
                     coinCount++;
-                    coinCounter.text = "x" + coinCount.ToString();
+                    coinCounter.text = "x" + coinCount.ToString().PadLeft(2,'0');
                 }
             }
         }
