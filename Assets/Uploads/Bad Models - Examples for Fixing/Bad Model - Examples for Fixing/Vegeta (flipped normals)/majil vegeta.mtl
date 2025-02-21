@@ -1,0 +1,80 @@
+newmtl Model001_Material001
+map_Kd mouth.png
+map_bump Material145_bump.png
+
+newmtl Model001_Material002
+map_Kd eyes.png
+map_bump Material142_bump.png
+
+newmtl Model001_Material003
+map_Kd bust1.png
+map_bump Material135_bump.png
+
+newmtl Model001_Material004
+map_Kd boots2.png
+map_bump Material140_bump.png
+
+newmtl Model001_Material005
+map_Kd eyebrowbase.png
+map_bump Material143_bump.png
+
+newmtl Model001_Material006
+map_Kd mouth.png
+map_bump Material145(1)_bump.png
+
+newmtl Model001_Material007
+map_Kd teeth.png
+map_bump Material146_bump.png
+
+newmtl Model001_Material008
+map_Kd boots1.png
+map_bump Material139_bump.png
+
+newmtl Model001_Material009
+map_Kd skin.png
+map_bump Material137_bump.png
+
+newmtl Model001_Material010
+map_Kd face.png
+map_bump Material141_bump.png
+
+newmtl Model001_Material011
+map_Kd pants.png
+map_bump Material136_bump.png
+
+newmtl Model001_Material012
+map_Kd gloves.png
+map_bump Material138_bump.png
+
+newmtl Model001_Material013
+map_Kd hairbase.png
+map_bump Material144_bump.png
+
+newmtl Model001_Material014
+map_Kd eyesssj3.png
+map_bump Material153_bump.png
+
+newmtl Model001_Material015
+map_Kd faceSSJ3.png
+map_bump Material150_bump.png
+
+newmtl Model001_Material016
+map_Kd eyebrowsssj3.png
+map_bump Material151_bump.png
+
+newmtl Model001_Material017
+map_Kd hairssj3.png
+map_bump Material154_bump.png
+
+newmtl Model001_Material018
+map_Kd eyebrowssj.png
+map_bump Material148_bump.png
+
+newmtl Model001_Material019
+map_Kd hairssj.png
+map_bump Material149_bump.png
+
+newmtl Model001_Material020
+map_Kd eyesSSJ.png
+map_bump Material147_bump.png
+
