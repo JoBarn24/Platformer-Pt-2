@@ -272,7 +272,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: bone_6
+    - boneName: bone_6_end
       humanName: LeftToes
       limit:
         min: {x: 0, y: 0, z: 0}

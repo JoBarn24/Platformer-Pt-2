@@ -13,12 +13,14 @@ public class MarioBehaviorScript : MonoBehaviour
     [Header("Debug Stuff")]
     public bool isGrounded;
     
+    Animator animator;
     Rigidbody rb;
     private GameObject brick;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
     }
 
@@ -92,5 +94,13 @@ public class MarioBehaviorScript : MonoBehaviour
                 }
             }
         }
+        
+        UpdateAnimation();
+    }
+
+    void UpdateAnimation()
+    {
+        animator.SetFloat("Speed",Mathf.Abs(rb.linearVelocity.x));
+        animator.SetBool("In Air", !isGrounded);
     }
 }
