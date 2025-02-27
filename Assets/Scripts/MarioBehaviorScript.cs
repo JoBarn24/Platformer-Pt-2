@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -5,10 +6,14 @@ public class MarioBehaviorScript : MonoBehaviour
 {
     public float acceleration = 10f;
     public float maxSpeed = 10f;
-    public float jumpImpulse = 8f;
+    public float jumpImpulse = 20f;
     public float jumpBoostForce = 5.7f;
     public int coinCount = 0;
     public TextMeshProUGUI coinCounter;
+    public int scoreCount = 0;
+    public TextMeshProUGUI scoreCounter;
+    public bool hitBlock;
+    public GameManager gameManager;
     
     [Header("Debug Stuff")]
     public bool isGrounded;
@@ -41,7 +46,7 @@ public class MarioBehaviorScript : MonoBehaviour
         
         //test if character on ground surface
         Collider c = GetComponent<Collider>();
-        float castDistance = c.bounds.extents.y + 0.01f;
+        float castDistance = c.bounds.extents.y + 0.1f;
         Vector3 startPoint = transform.position;
         
         Color color = (isGrounded) ? Color.green : Color.red;
@@ -75,6 +80,31 @@ public class MarioBehaviorScript : MonoBehaviour
             transform.rotation = rotation;
         }
         
+        //break brick when character hits it
+        Vector3 headPosition = transform.position + Vector3.up * 1f;
+        RaycastHit headHit;
+        Debug.DrawRay(headPosition, Vector3.up * castDistance, Color.red);
+        
+        if (Physics.Raycast(headPosition, Vector3.up, out headHit, castDistance))
+        {
+            if (headHit.collider.CompareTag("Brick"))
+            {
+                Destroy(headHit.collider.gameObject);
+                Debug.Log("Brick broken!");
+                scoreCount += 100;
+                scoreCounter.text = scoreCount.ToString().PadLeft(6,'0');
+            }
+            if (headHit.collider.CompareTag("Question"))
+            {
+                Destroy(headHit.collider.gameObject);
+                Debug.Log("Question block broken!");
+                coinCount += 1;
+                scoreCount += 100;
+                coinCounter.text = scoreCount.ToString().PadLeft(2,'0');
+                scoreCounter.text = scoreCount.ToString().PadLeft(6,'0');
+            }
+        }
+        
         //break brick when mouse clicks it
         if (Input.GetMouseButtonDown(0))
         {
@@ -83,11 +113,11 @@ public class MarioBehaviorScript : MonoBehaviour
             
             if (Physics.Raycast(ray, out hit) && hit.collider != null)
             {
-                if (hit.collider.tag == "Brick")
+                if (hit.collider.CompareTag("Brick"))
                 {
                     Destroy(hit.collider.gameObject);
                 }
-                else if (hit.collider.tag == "Question")
+                else if (hit.collider.CompareTag("Question"))
                 {
                     coinCount++;
                     coinCounter.text = "x" + coinCount.ToString().PadLeft(2,'0');
@@ -102,5 +132,21 @@ public class MarioBehaviorScript : MonoBehaviour
     {
         animator.SetFloat("Speed",Mathf.Abs(rb.linearVelocity.x));
         animator.SetBool("In Air", !isGrounded);
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Lava"))
+        {
+            gameManager.PlayerLost();
+            coinCount = 0;
+            scoreCount = 0;
+            coinCounter.text = coinCount.ToString().PadLeft(2,'0');
+            scoreCounter.text = scoreCount.ToString().PadLeft(6,'0');
+        }
+        else if (other.gameObject.CompareTag("Goal"))
+        {
+            gameManager.PlayerWon();
+        }
     }
 }

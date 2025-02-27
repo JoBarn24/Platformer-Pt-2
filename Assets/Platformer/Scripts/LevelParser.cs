@@ -39,6 +39,8 @@ public class LevelParser : MonoBehaviour
     public GameObject questionBoxPrefab;
     public GameObject stonePrefab;
     public GameObject dirtPrefab;
+    public GameObject lavaPrefab;
+    public GameObject goalPrefab;
 
     // --------------------------------------------------------------------------
     void Start()
@@ -113,13 +115,25 @@ public class LevelParser : MonoBehaviour
                     GameObject newObj = Instantiate(rockPrefab, environmentRoot);
                     newObj.transform.position = pos;
                 }
+                else if (letters[col] == 'l')
+                {
+                    Vector3 pos = new Vector3(col + 0.5f, row + 0.5f, 0f);
+                    GameObject newObj = Instantiate(lavaPrefab, environmentRoot);
+                    newObj.transform.position = pos;
+                }
+                else if (letters[col] == 'g')
+                {
+                    Vector3 pos = new Vector3(col + 0.5f, row + 0.5f, 0f);
+                    GameObject newObj = Instantiate(goalPrefab, environmentRoot);
+                    newObj.transform.position = pos;
+                }
             }
             row++;
         }
     }
 
     // --------------------------------------------------------------------------
-    void ReloadLevel()
+    public void ReloadLevel()
     {
         foreach (Transform child in environmentRoot)
            Destroy(child.gameObject);

@@ -1,12 +1,17 @@
+using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public TextMeshProUGUI timerText;
     public float scrollSpeed = 5f;
+    public bool gameOver = false;
+    public LevelParser levelParser;
     
-    private int timeLeft;
+    private int timeLeft = 100;
     private Camera mainCamera;
 
     void Start()
@@ -16,8 +21,16 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timeLeft = 300 - (int)Time.time;
-        timerText.text = $"Time: {timeLeft}";
+        if (timeLeft > 0 && gameOver == false)
+        {
+            timeLeft = 100 - (int)Time.time;
+            timerText.text = $"Time: {timeLeft}";
+        }
+        else if (timeLeft <= 0 && gameOver == false)
+        {
+            gameOver = true;
+            PlayerLost();
+        }
 
         if (Input.GetKey(KeyCode.LeftArrow))
         {
@@ -27,5 +40,26 @@ public class GameManager : MonoBehaviour
         {
             mainCamera.transform.position += Vector3.right * scrollSpeed * Time.deltaTime;
         }
+    }
+
+    public void PlayerWon()
+    {
+        Debug.Log("Player won!");
+        StartCoroutine(Reload());
+        timeLeft = 100;
+    }
+
+    public void PlayerLost()
+    {
+        Debug.Log("Player lost!");
+        StartCoroutine(Reload());
+        timeLeft = 100;
+        gameOver = false;
+    }
+
+    private IEnumerator Reload()
+    {
+        yield return new WaitForSeconds(5f);
+        levelParser.ReloadLevel();
     }
 }

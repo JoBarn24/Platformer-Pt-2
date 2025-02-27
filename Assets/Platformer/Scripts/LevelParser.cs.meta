@@ -10,6 +10,8 @@ MonoImporter:
   - questionBoxPrefab: {fileID: 2652198492393551387, guid: 97d0fe6850ab3714eaa654f26f4ca9f8, type: 3}
   - stonePrefab: {fileID: 2652198492393551387, guid: e2bf2963d586ea44ea04e84c9ae1fa8e, type: 3}
   - dirtPrefab: {fileID: 6988891510277338403, guid: 31fa34f81b21061409e56ab3f2d08fe4, type: 3}
+  - lavaPrefab: {fileID: 6988891510277338403, guid: aba284b3b99730c4c8e7e640b1168d00, type: 3}
+  - goalPrefab: {fileID: 2652198492393551387, guid: 7e667652d95e4654498b82b3179af0b8, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
