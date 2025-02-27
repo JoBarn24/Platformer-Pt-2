@@ -12,7 +12,6 @@ public class MarioBehaviorScript : MonoBehaviour
     public TextMeshProUGUI coinCounter;
     public int scoreCount = 0;
     public TextMeshProUGUI scoreCounter;
-    public bool hitBlock;
     public GameManager gameManager;
     
     [Header("Debug Stuff")]
@@ -20,13 +19,14 @@ public class MarioBehaviorScript : MonoBehaviour
     
     Animator animator;
     Rigidbody rb;
-    private GameObject brick;
+    private Vector3 initialPosition;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
+        initialPosition = transform.position;
     }
 
     // Update is called once per frame
@@ -100,7 +100,7 @@ public class MarioBehaviorScript : MonoBehaviour
                 Debug.Log("Question block broken!");
                 coinCount += 1;
                 scoreCount += 100;
-                coinCounter.text = scoreCount.ToString().PadLeft(2,'0');
+                coinCounter.text = coinCount.ToString().PadLeft(2,'0');
                 scoreCounter.text = scoreCount.ToString().PadLeft(6,'0');
             }
         }
@@ -119,7 +119,7 @@ public class MarioBehaviorScript : MonoBehaviour
                 }
                 else if (hit.collider.CompareTag("Question"))
                 {
-                    coinCount++;
+                    coinCount += 1;
                     coinCounter.text = "x" + coinCount.ToString().PadLeft(2,'0');
                 }
             }
@@ -138,14 +138,16 @@ public class MarioBehaviorScript : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Lava"))
         {
-            gameManager.PlayerLost();
+            transform.position = initialPosition;
             coinCount = 0;
             scoreCount = 0;
             coinCounter.text = coinCount.ToString().PadLeft(2,'0');
             scoreCounter.text = scoreCount.ToString().PadLeft(6,'0');
+            gameManager.PlayerLost();
         }
         else if (other.gameObject.CompareTag("Goal"))
         {
+            transform.position = initialPosition;
             gameManager.PlayerWon();
         }
     }

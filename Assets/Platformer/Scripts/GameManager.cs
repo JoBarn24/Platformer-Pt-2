@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public bool gameOver = false;
     public LevelParser levelParser;
     
-    private int timeLeft = 100;
+    private float timeLeft = 100;
     private Camera mainCamera;
 
     void Start()
@@ -21,15 +21,22 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (timeLeft > 0 && gameOver == false)
+        if (!gameOver)
         {
-            timeLeft = 100 - (int)Time.time;
-            timerText.text = $"Time: {timeLeft}";
+            if (timeLeft > 0)
+            {
+                timeLeft -= (int)Time.deltaTime;
+                timerText.text = $"Time: {Math.Ceiling(timeLeft)}";
+            }
+            else
+            {
+                gameOver = true;
+                PlayerLost();
+            }
         }
-        else if (timeLeft <= 0 && gameOver == false)
+        else
         {
-            gameOver = true;
-            PlayerLost();
+            timerText.text = $"Time: {Math.Ceiling(timeLeft)}";
         }
 
         if (Input.GetKey(KeyCode.LeftArrow))
@@ -46,20 +53,20 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Player won!");
         StartCoroutine(Reload());
-        timeLeft = 100;
     }
 
     public void PlayerLost()
     {
         Debug.Log("Player lost!");
+        timerText.text = $"Time: {Math.Ceiling(timeLeft)}";
         StartCoroutine(Reload());
-        timeLeft = 100;
-        gameOver = false;
     }
 
     private IEnumerator Reload()
     {
         yield return new WaitForSeconds(5f);
         levelParser.ReloadLevel();
+        timeLeft = 100f;
+        gameOver = false;
     }
 }
