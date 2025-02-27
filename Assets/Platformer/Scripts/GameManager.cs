@@ -13,11 +13,14 @@ public class GameManager : MonoBehaviour
     
     private float timeLeft = 100;
     private Camera mainCamera;
+    private Vector3 initialPosition;
 
     void Start()
     {
         mainCamera = Camera.main;
+        initialPosition = mainCamera.transform.position;
     }
+    
     // Update is called once per frame
     void Update()
     {
@@ -25,7 +28,7 @@ public class GameManager : MonoBehaviour
         {
             if (timeLeft > 0)
             {
-                timeLeft -= (int)Time.deltaTime;
+                timeLeft -= Time.deltaTime;
                 timerText.text = $"Time: {Math.Ceiling(timeLeft)}";
             }
             else
@@ -58,13 +61,13 @@ public class GameManager : MonoBehaviour
     public void PlayerLost()
     {
         Debug.Log("Player lost!");
-        timerText.text = $"Time: {Math.Ceiling(timeLeft)}";
         StartCoroutine(Reload());
     }
 
     private IEnumerator Reload()
     {
-        yield return new WaitForSeconds(5f);
+        mainCamera.transform.position = initialPosition;
+        yield return new WaitForSeconds(1f);
         levelParser.ReloadLevel();
         timeLeft = 100f;
         gameOver = false;
