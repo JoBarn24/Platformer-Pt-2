@@ -295,7 +295,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 352889642}
-  m_Material: {fileID: 13400000, guid: 4ae344dd8d2e5234e951b577e1c58b86, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -325,10 +325,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   acceleration: 50
   maxSpeed: 10
-  jumpImpulse: 15
+  jumpImpulse: 20
   jumpBoostForce: 5.7
   coinCount: 0
   coinCounter: {fileID: 1792457149}
+  scoreCount: 0
+  scoreCounter: {fileID: 1518251075}
+  gameManager: {fileID: 1327006012}
   isGrounded: 0
 --- !u!1001 &373029955
 PrefabInstance:
@@ -449,13 +452,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e6568559d6661b4eba05e67f1401a83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filename: Test
+  filename: CustomLevel
   environmentRoot: {fileID: 727678647}
   rockPrefab: {fileID: 2652198492393551387, guid: 981bb3414d36746408a1c5ee5244f1b1, type: 3}
   brickPrefab: {fileID: 2652198492393551387, guid: d94221691cf23ce429136e2be05d002b, type: 3}
   questionBoxPrefab: {fileID: 2652198492393551387, guid: 97d0fe6850ab3714eaa654f26f4ca9f8, type: 3}
   stonePrefab: {fileID: 2652198492393551387, guid: e2bf2963d586ea44ea04e84c9ae1fa8e, type: 3}
   dirtPrefab: {fileID: 6988891510277338403, guid: 31fa34f81b21061409e56ab3f2d08fe4, type: 3}
+  lavaPrefab: {fileID: 6988891510277338403, guid: aba284b3b99730c4c8e7e640b1168d00, type: 3}
+  goalPrefab: {fileID: 2652198492393551387, guid: 7e667652d95e4654498b82b3179af0b8, type: 3}
 --- !u!1 &718983527
 GameObject:
   m_ObjectHideFlags: 0
@@ -1304,6 +1309,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerText: {fileID: 856041657}
   scrollSpeed: 10
+  gameOver: 0
+  levelParser: {fileID: 406602703}
 --- !u!4 &1327006013
 Transform:
   m_ObjectHideFlags: 0
@@ -1331,7 +1338,7 @@ GameObject:
   - component: {fileID: 1518251076}
   - component: {fileID: 1518251075}
   m_Layer: 5
-  m_Name: Lives
+  m_Name: ScoreCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1770,6 +1777,6 @@ SceneRoots:
   - {fileID: 1907274424}
   - {fileID: 949774282}
   - {fileID: 1041908491}
+  - {fileID: 373029955}
   - {fileID: 1283578634}
   - {fileID: 1327006013}
-  - {fileID: 373029955}
